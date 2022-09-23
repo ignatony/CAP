@@ -1,0 +1,214 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: CAP-API
+
+  main:
+    allow-circular-references: true    
+    
+  jackson:
+    serialization.write_dates_as_timestamps: false           
+  
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        id:
+          new_generator_mappings: false
+        jdbc:
+          time_zone: UTC
+          batch_size: 5
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cap_db?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    username: root
+    password: mydatabase
+    hikari:
+      connectionTimeout: 60000
+      idleTimeout: 50000
+      maxLifetime: 1800000
+      maximumPoolSize: 20
+      poolName: CapDbPool
+      leakDetectionThreshold: 10
+      
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB  
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+    
+#spring.jpa.show-sql: true
+
+#  config:
+#    import:
+#    - http://localhost:8888/
+
+api:
+  title: CAP- API microservice
+  description: Rest API Microservice for Common API
+  version: 2.0
+  name: http://ignatoy.in
+  package: com.cap.api.controller
+  base:
+    url: /cap-api
+    
+## Bussines service details      
+  createBussinesReq:
+    url: /createBussinesReq
+    desc: The CAP  createBussinesReq API
+    
+    
+## User service details  
+  createUser:
+    url: /createUser
+    desc: The CAP create User API
+  updateUser:
+    url: /updateUser
+    desc: The CAP update User API
+  getUser:
+    url: /getUser
+    desc: The CAP Get user API  
+  getAllUsers:
+    url: /getAllUsers
+    desc: The CAP get All Users API  
+  deleteUser:
+    url: /deleteUser
+    desc: The CAP delete User API  
+    
+    
+    
+## Tenant API service details      
+  createTenant:
+    url: /createTenant
+    desc: The CAP create Tenant API
+  updateTenant:
+    url: /updateTenant
+    desc: The CAP update Tenant API
+  getTenant:
+    url: /getTenant
+    desc: The CAP Get Tenant API  
+  getAllTenants:
+    url: /getAllTenant
+    desc: The CAP get All Tenants API  
+  deleteTenant:
+    url: /deleteTenant
+    desc: The CAP delete Tenant API
+    
+## Customer API service details      
+  createCustomer:
+    url: /createCustomer
+    desc: The CAP create Customer API
+  updateCustomer:
+    url: /updateCustomer
+    desc: The CAP update Customer API
+  getCustomer:
+    url: /getCustomer
+    desc: The CAP Get Customer API  
+  getAllCustomers:
+    url: /getAllCustomers
+    desc: The CAP get All Customers API  
+  deleteCustomer:
+    url: /deleteCustomer
+    desc: The CAP delete Customer API     
+    
+## Provider API service details      
+  createProvider:
+    url: /createProvider
+    desc: The CAP create Provider API
+  updateProvider:
+    url: /updateProvider
+    desc: The CAP update Provider API
+  getProvider:
+    url: /getProvider
+    desc: The CAP Get Provider API  
+  getAllProviders:
+    url: /getAllProviders
+    desc: The CAP get All Provider API  
+  deleteProvider:
+    url: /deleteProvider
+    desc: The CAP delete Provider API
+  
+    
+## Service API details  
+  createService:
+    url: /createService
+    desc: The CAP create Service API
+  updateService:
+    url: /updateService
+    desc: The CAP update Service API
+  getService:
+    url: /getService
+    desc: The CAP Get Service API  
+  getAllServices:
+    url: /getAllServices
+    desc: The CAP get All Service API  
+  deleteService:
+    url: /deleteService
+    desc: The CAP delete Service API
+  getProviderService:
+    url: /getProviderService
+    desc: The CAP Provider Servicer API  
+    
+## WorkFlow API service details      
+  createWorkFlow:
+    url: /createWorkFlow
+    desc: The CAP create WorkFlow API
+  updateWorkFlow:
+    url: /updateWorkFlow
+    desc: The CAP update WorkFlow API
+  getWorkFlow:
+    url: /getWorkFlow
+    desc: The CAP Get WorkFlow API  
+  getAllWorkFlows:
+    url: /getAllWorkFlows
+    desc: The CAP get All WorkFlow API  
+  deleteWorkFlow:
+    url: /deleteWorkFlow
+    desc: The CAP delete WorkFlow API  
+  getWorkFlowByServiceId:
+    url: /getWorkFlowByServiceId
+    desc: The CAP  WorkFlow by ServiceId API         
+
+      
+
+#### HTTP Connection Configuration ####
+connection:
+## Connection pool
+  pool:
+    MAX_ROUTE_CONNECTIONS: 40
+    MAX_TOTAL_CONNECTIONS: 40
+    MAX_LOCALHOST_CONNECTIONS: 80
+##  Keep alive   
+  alive:
+    DEFAULT_KEEP_ALIVE_TIME:  20000          ## 20 * 1000; => 20 sec
+## Connection timeout    
+  timeout:
+    CONNECTION_TIMEOUT: 30000                ## 30 * 1000; => 30 sec, the time for waiting until a connection is established
+    REQUEST_TIMEOUT: 30000                   ## 30 * 1000; => 30 sec, the time for waiting for a connection from connection pool
+    SOCKET_TIMEOUT: 60000                    ## 60 * 1000; => 60 sec, the time for waiting for data
+    READ_TIMEOUT: 800000
+## Idle connection monitor  
+  idel:
+    IDLE_CONNECTION_WAIT_TIME: 30000        ##  30 * 1000; => 30 sec
+    
+    
+url:
+  cap_engine: http://localhost:9002/cap-engine/executeService
+  cap_common_crrate_logger: http://localhost:9006/cap-commons/logger/createLog
+  cap_common_get_logger: http://localhost:9006/cap-commons/logger/findAllLogger
+  
+jwt:
+  secret: ignatony

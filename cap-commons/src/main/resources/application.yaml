@@ -1,0 +1,30 @@
+server:
+  port: 9006
+spring:
+  application:
+    name: CAP-COMMONS
+    
+#for Swagger Config
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+
+  main:
+    allow-circular-references: true    
+    
+  jackson:
+    serialization.write_dates_as_timestamps: false    
+  
+  
+microstream:
+  store:
+##    location=${user.home}/microstream-store
+    loggerLocation: D:/cap/microstream-store/logger
+    cacheLocation: D:/cap/microstream-store/cache
+    
+api:
+  title: CAP-COMMONS microservice
+  description: Rest API Microservice for Common API
+  version: 2.0
+  name: http://ignatoy.in
+  package: com.cap.commons

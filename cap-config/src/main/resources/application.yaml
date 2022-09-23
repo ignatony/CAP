@@ -1,0 +1,14 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          username: ignatony
+          uri: file:///D:\\DevLoc\\git-repo\\myRepo\\
+            
+          password: Sudheerr@11
+
+
+          

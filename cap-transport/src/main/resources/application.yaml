@@ -1,0 +1,22 @@
+server:
+  port: 9005
+
+spring:
+  mvc:
+   pathmatch:
+     matching-strategy: ant-path-matcher
+     
+     
+api:
+  title: CAP-TRANSPORT MICRO-SERVICE
+  description: Rest API Microservice for Common Transport
+  version: 2.0
+  name: http://ignatoy.in
+  package: com.cap.transport.controller
+  base:
+    url: /cap-transport
+
+## Bussines service details
+  executeTransport:
+    url: /executeTransport
+    desc: The CAP Transport service execution

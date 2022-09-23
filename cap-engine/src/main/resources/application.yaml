@@ -1,0 +1,94 @@
+server:
+  port: 9002
+  
+  
+  
+api:
+  title: CAP-ENGINE microservice
+  description: Rest API Microservice for Common API Engine
+  version: 2.0
+  name: http://ignatoy.in
+  package: com.cap.engine.controller
+  base:
+    url: /cap-engine
+    
+## Bussines service details      
+  executeService:
+    url: /executeService
+    desc: The CAP Engine service execution API
+    
+
+
+## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+spring:
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        id:
+          new_generator_mappings: false
+        jdbc:
+          time_zone: UTC
+          batch_size: 5
+          
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cap_db?serverTimezone=UTC&rewriteBatchedStatements=true
+    username: root
+    password: mydatabase
+    hikari:
+      connectionTimeout: 60000
+      idleTimeout: 50000
+      maxLifetime: 1800000
+      maximumPoolSize: 20
+      poolName: CapDbPool
+      leakDetectionThreshold: 10
+          
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+      
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher    
+      
+#### HTTP Connection Configuration ####
+connection:
+## Connection pool
+  pool:
+    MAX_ROUTE_CONNECTIONS: 40
+    MAX_TOTAL_CONNECTIONS: 40
+    MAX_LOCALHOST_CONNECTIONS: 80
+##  Keep alive   
+  alive:
+    DEFAULT_KEEP_ALIVE_TIME:  20000          ## 20 * 1000; => 20 sec
+## Connection timeout    
+  timeout:
+    CONNECTION_TIMEOUT: 30000                ## 30 * 1000; => 30 sec, the time for waiting until a connection is established
+    REQUEST_TIMEOUT: 30000                   ## 30 * 1000; => 30 sec, the time for waiting for a connection from connection pool
+    SOCKET_TIMEOUT: 60000                    ## 60 * 1000; => 60 sec, the time for waiting for data
+    READ_TIMEOUT: 800000
+## Idle connection monitor  
+  idel:
+    IDLE_CONNECTION_WAIT_TIME: 30000        ##  30 * 1000; => 30 sec       
+    
+     
+# All files uploaded through the REST API will be stored in this directory
+file:
+    upload-dir: ./src/main/resources/file
+    fetch-dir: src/main/resources/file/  
+    
+url:
+  cap_transport: http://localhost:9005/cap-transport/executeTransport
+  cap_common_get_cache: http://localhost:9006/cap-commons/cache/findCacheByKey/
+  cap_common_store_cache: http://localhost:9006/cap-commons/cache/createCache
